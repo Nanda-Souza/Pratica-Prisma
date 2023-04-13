@@ -14,19 +14,38 @@ async function getCar(id: number) {
 }
 
 async function getCarWithLicensePlate(licensePlate: string) {
-  //const data = await db.query(`SELECT * FROM cars WHERE "licensePlate" = $1`, [licensePlate]);
-  //return data.rows[0];
-  return [];
+  return prisma.cars.findUnique({
+    where: {
+      licensePlate: licensePlate
+    }
+  });  
 }
 
 async function createCar(model: string, licensePlate: string, year: number, color: string) {
-  //await db.query(
-//    `INSERT INTO cars (model, "licensePlate", year, color)
-     //VALUES ($1, $2, $3, $4)`,
-    //[model, licensePlate, year, color]
-  //);
-  return [];
+  return prisma.cars.create({
+    data: {
+      model: model,
+      licensePlate: licensePlate,
+      year: year,
+      color: color
+    }
+  });
 }
+
+/*
+return prisma.users.create({
+        data: user
+    });
+async function  upsert(user:NewUser) {
+    return prisma.users.upsert({
+        //need to use a unique field
+        where: {
+            id: user.id || 0,
+        },
+        create: user as User,
+        update: user
+    })    
+} */
 
 async function deleteCar(id: number) {
   //await db.query(`DELETE FROM cars WHERE id = $1`, [id]);
