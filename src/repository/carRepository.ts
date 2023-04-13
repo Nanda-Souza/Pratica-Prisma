@@ -32,25 +32,13 @@ async function createCar(model: string, licensePlate: string, year: number, colo
   });
 }
 
-/*
-return prisma.users.create({
-        data: user
-    });
-async function  upsert(user:NewUser) {
-    return prisma.users.upsert({
-        //need to use a unique field
-        where: {
-            id: user.id || 0,
-        },
-        create: user as User,
-        update: user
-    })    
-} */
-
 async function deleteCar(id: number) {
-  //await db.query(`DELETE FROM cars WHERE id = $1`, [id]);
-  return [];
-}
+  return prisma.cars.delete({
+    where: {
+      id: id
+    }
+  })
+};
 
 const carRepository = {
   getCar,
